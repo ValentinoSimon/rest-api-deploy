@@ -1,6 +1,6 @@
 const express = require('express')
 const crypto = require('node:crypto')
-const cors = require('cors');
+const cors = require('cors')
 const movies = require('./movies') // Importar el módulo movies.js
 const { movieSchema , validatePartialMovie } = require('./schemamovies') // Import movieSchema
 
@@ -16,11 +16,6 @@ const AcceptedOrigins = ['http://localhost:3000', 'http://localhost:8080']
 
 app.get('/movies', (req, res) => {
     const { origin } = req.headers
-    if (AcceptedOrigins.includes(origin)) {
-        res.header('Access-Control-Allow-Origin', '*')
-    } else {
-        res.send('No se permiten peticiones de origen no permitidos')
-    }
 
     const { genre } = req.query
     if (genre) {
