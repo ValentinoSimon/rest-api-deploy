@@ -1,0 +1,27 @@
+{
+  "name": "clase-3",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "4.21.2",
+    "express-session": "^1.18.1",
+    "standard": "17.1.2",
+    "zod": "^3.24.1"
+  },
+  "eslintConfig": {
+    "extends": "standard",
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ]
+    }
+  }
+}
