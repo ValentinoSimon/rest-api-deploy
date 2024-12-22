@@ -1,8 +1,12 @@
 const express = require('express')
 const crypto = require('node:crypto')
+const cors = require('cors');
 const movies = require('./movies') // Importar el módulo movies.js
 const { movieSchema , validatePartialMovie } = require('./schemamovies') // Import movieSchema
+
 const app = express()
+
+app.use(cors())
 
 app.use(express.json())
 
@@ -81,10 +85,9 @@ app.patch('/movies/:id', (req, res) => {
 })
 
 app.delete('/movies/:id', (req, res) => {
-
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
 
     const { id } = req.params
     const movieIndex = movies.findIndex((movie) => movie.id === id)
