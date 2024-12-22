@@ -6,13 +6,13 @@ const { movieSchema , validatePartialMovie } = require('./schemamovies') // Impo
 
 const app = express()
 
-app.use(cors())
+app.use(cors({
+    origin: ['http://localhost:3000', 'http://localhost:8080', 'https://rest-api-deploy-cdx1.onrender.com']
+}))
 
 app.use(express.json())
 
 app.disable('x-powered-by') // Deshabilitar la cabecera X-Powered-By
-
-const AcceptedOrigins = ['http://localhost:3000', 'http://localhost:8080']
 
 app.get('/movies', (req, res) => {
     const { origin } = req.headers
@@ -80,10 +80,6 @@ app.patch('/movies/:id', (req, res) => {
 })
 
 app.delete('/movies/:id', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
     const { id } = req.params
     const movieIndex = movies.findIndex((movie) => movie.id === id)
 
@@ -97,15 +93,7 @@ app.delete('/movies/:id', (req, res) => {
 })
 
 app.options('/movies/:id', (req, res) => {
-    const { origin } = req.headers
-    if (AcceptedOrigins.includes(origin)) {
-        res.header('Access-Control-Allow-Origin', '*')
-        res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
-        res.header('Access-Control-Allow-Headers', 'Content-Type')
-        res.status(204).send()
-    } else {
-        res.send('No se permiten peticiones de origen no permitidos')
-    }
+    res.status(204).send()
 })
 
 const PORT = process.env.PORT ?? 3000
